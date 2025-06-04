@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
+import { AssetCreateNestedManyWithoutCourseSubSectionsInput } from "./AssetCreateNestedManyWithoutCourseSubSectionsInput";
 
 import {
   ValidateNested,
@@ -25,9 +25,23 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
+import { FlashcardDeckCreateNestedManyWithoutCourseSubSectionsInput } from "./FlashcardDeckCreateNestedManyWithoutCourseSubSectionsInput";
 
 @InputType()
 class CourseSubSectionCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AssetCreateNestedManyWithoutCourseSubSectionsInput,
+  })
+  @ValidateNested()
+  @Type(() => AssetCreateNestedManyWithoutCourseSubSectionsInput)
+  @IsOptional()
+  @Field(() => AssetCreateNestedManyWithoutCourseSubSectionsInput, {
+    nullable: true,
+  })
+  assets?: AssetCreateNestedManyWithoutCourseSubSectionsInput;
+
   @ApiProperty({
     required: false,
     type: () => CourseSectionWhereUniqueInput,
@@ -39,6 +53,18 @@ class CourseSubSectionCreateInput {
     nullable: true,
   })
   courseSection?: CourseSectionWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardDeckCreateNestedManyWithoutCourseSubSectionsInput,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardDeckCreateNestedManyWithoutCourseSubSectionsInput)
+  @IsOptional()
+  @Field(() => FlashcardDeckCreateNestedManyWithoutCourseSubSectionsInput, {
+    nullable: true,
+  })
+  flashcardDecks?: FlashcardDeckCreateNestedManyWithoutCourseSubSectionsInput;
 
   @ApiProperty({
     required: false,

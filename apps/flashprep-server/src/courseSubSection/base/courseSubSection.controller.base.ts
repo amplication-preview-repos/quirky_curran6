@@ -22,6 +22,12 @@ import { CourseSubSection } from "./CourseSubSection";
 import { CourseSubSectionFindManyArgs } from "./CourseSubSectionFindManyArgs";
 import { CourseSubSectionWhereUniqueInput } from "./CourseSubSectionWhereUniqueInput";
 import { CourseSubSectionUpdateInput } from "./CourseSubSectionUpdateInput";
+import { AssetFindManyArgs } from "../../asset/base/AssetFindManyArgs";
+import { Asset } from "../../asset/base/Asset";
+import { AssetWhereUniqueInput } from "../../asset/base/AssetWhereUniqueInput";
+import { FlashcardDeckFindManyArgs } from "../../flashcardDeck/base/FlashcardDeckFindManyArgs";
+import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
+import { FlashcardDeckWhereUniqueInput } from "../../flashcardDeck/base/FlashcardDeckWhereUniqueInput";
 
 export class CourseSubSectionControllerBase {
   constructor(protected readonly service: CourseSubSectionService) {}
@@ -200,5 +206,177 @@ export class CourseSubSectionControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/assets")
+  @ApiNestedQuery(AssetFindManyArgs)
+  async findAssets(
+    @common.Req() request: Request,
+    @common.Param() params: CourseSubSectionWhereUniqueInput
+  ): Promise<Asset[]> {
+    const query = plainToClass(AssetFindManyArgs, request.query);
+    const results = await this.service.findAssets(params.id, {
+      ...query,
+      select: {
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        isSample: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/assets")
+  async connectAssets(
+    @common.Param() params: CourseSubSectionWhereUniqueInput,
+    @common.Body() body: AssetWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      assets: {
+        connect: body,
+      },
+    };
+    await this.service.updateCourseSubSection({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/assets")
+  async updateAssets(
+    @common.Param() params: CourseSubSectionWhereUniqueInput,
+    @common.Body() body: AssetWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      assets: {
+        set: body,
+      },
+    };
+    await this.service.updateCourseSubSection({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/assets")
+  async disconnectAssets(
+    @common.Param() params: CourseSubSectionWhereUniqueInput,
+    @common.Body() body: AssetWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      assets: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCourseSubSection({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/flashcardDecks")
+  @ApiNestedQuery(FlashcardDeckFindManyArgs)
+  async findFlashcardDecks(
+    @common.Req() request: Request,
+    @common.Param() params: CourseSubSectionWhereUniqueInput
+  ): Promise<FlashcardDeck[]> {
+    const query = plainToClass(FlashcardDeckFindManyArgs, request.query);
+    const results = await this.service.findFlashcardDecks(params.id, {
+      ...query,
+      select: {
+        course: {
+          select: {
+            id: true,
+          },
+        },
+
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        description: true,
+        id: true,
+        isSample: true,
+        lastUpdated: true,
+        tags: true,
+        title: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/flashcardDecks")
+  async connectFlashcardDecks(
+    @common.Param() params: CourseSubSectionWhereUniqueInput,
+    @common.Body() body: FlashcardDeckWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      flashcardDecks: {
+        connect: body,
+      },
+    };
+    await this.service.updateCourseSubSection({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/flashcardDecks")
+  async updateFlashcardDecks(
+    @common.Param() params: CourseSubSectionWhereUniqueInput,
+    @common.Body() body: FlashcardDeckWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      flashcardDecks: {
+        set: body,
+      },
+    };
+    await this.service.updateCourseSubSection({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/flashcardDecks")
+  async disconnectFlashcardDecks(
+    @common.Param() params: CourseSubSectionWhereUniqueInput,
+    @common.Body() body: FlashcardDeckWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      flashcardDecks: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCourseSubSection({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

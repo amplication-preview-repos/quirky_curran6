@@ -17,9 +17,11 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  IsBoolean,
   IsDate,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { CourseSubSectionWhereUniqueInput } from "../../courseSubSection/base/CourseSubSectionWhereUniqueInput";
 import { ErrorCardUpdateManyWithoutFlashcardDecksInput } from "./ErrorCardUpdateManyWithoutFlashcardDecksInput";
 import { FlashcardSessionUpdateManyWithoutFlashcardDecksInput } from "./FlashcardSessionUpdateManyWithoutFlashcardDecksInput";
 import { FlashcardUpdateManyWithoutFlashcardDecksInput } from "./FlashcardUpdateManyWithoutFlashcardDecksInput";
@@ -37,6 +39,18 @@ class FlashcardDeckUpdateInput {
     nullable: true,
   })
   course?: CourseWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CourseSubSectionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CourseSubSectionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CourseSubSectionWhereUniqueInput, {
+    nullable: true,
+  })
+  courseSubSection?: CourseSubSectionWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -85,6 +99,17 @@ class FlashcardDeckUpdateInput {
     nullable: true,
   })
   flashcards?: FlashcardUpdateManyWithoutFlashcardDecksInput;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isSample?: boolean | null;
 
   @ApiProperty({
     required: false,

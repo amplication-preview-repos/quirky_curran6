@@ -14,11 +14,13 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CourseWhereUniqueInput } from "../../course/base/CourseWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { CourseSubSectionWhereUniqueInput } from "../../courseSubSection/base/CourseSubSectionWhereUniqueInput";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ErrorCardListRelationFilter } from "../../errorCard/base/ErrorCardListRelationFilter";
 import { FlashcardSessionListRelationFilter } from "../../flashcardSession/base/FlashcardSessionListRelationFilter";
 import { FlashcardListRelationFilter } from "../../flashcard/base/FlashcardListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 
 @InputType()
@@ -34,6 +36,18 @@ class FlashcardDeckWhereInput {
     nullable: true,
   })
   course?: CourseWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => CourseSubSectionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CourseSubSectionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CourseSubSectionWhereUniqueInput, {
+    nullable: true,
+  })
+  courseSubSection?: CourseSubSectionWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -92,6 +106,17 @@ class FlashcardDeckWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isSample?: BooleanNullableFilter;
 
   @ApiProperty({
     required: false,

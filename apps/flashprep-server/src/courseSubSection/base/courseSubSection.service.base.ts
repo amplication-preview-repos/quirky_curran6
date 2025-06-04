@@ -14,6 +14,8 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   CourseSubSection as PrismaCourseSubSection,
+  Asset as PrismaAsset,
+  FlashcardDeck as PrismaFlashcardDeck,
   CourseSection as PrismaCourseSection,
 } from "@prisma/client";
 
@@ -50,6 +52,28 @@ export class CourseSubSectionServiceBase {
     args: Prisma.CourseSubSectionDeleteArgs
   ): Promise<PrismaCourseSubSection> {
     return this.prisma.courseSubSection.delete(args);
+  }
+
+  async findAssets(
+    parentId: string,
+    args: Prisma.AssetFindManyArgs
+  ): Promise<PrismaAsset[]> {
+    return this.prisma.courseSubSection
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .assets(args);
+  }
+
+  async findFlashcardDecks(
+    parentId: string,
+    args: Prisma.FlashcardDeckFindManyArgs
+  ): Promise<PrismaFlashcardDeck[]> {
+    return this.prisma.courseSubSection
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .flashcardDecks(args);
   }
 
   async getCourseSection(

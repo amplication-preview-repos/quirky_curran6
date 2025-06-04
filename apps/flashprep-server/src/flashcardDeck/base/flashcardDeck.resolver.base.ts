@@ -27,6 +27,7 @@ import { FlashcardSession } from "../../flashcardSession/base/FlashcardSession";
 import { FlashcardFindManyArgs } from "../../flashcard/base/FlashcardFindManyArgs";
 import { Flashcard } from "../../flashcard/base/Flashcard";
 import { Course } from "../../course/base/Course";
+import { CourseSubSection } from "../../courseSubSection/base/CourseSubSection";
 import { FlashcardDeckService } from "../flashcardDeck.service";
 @graphql.Resolver(() => FlashcardDeck)
 export class FlashcardDeckResolverBase {
@@ -73,6 +74,12 @@ export class FlashcardDeckResolverBase {
               connect: args.data.course,
             }
           : undefined,
+
+        courseSubSection: args.data.courseSubSection
+          ? {
+              connect: args.data.courseSubSection,
+            }
+          : undefined,
       },
     });
   }
@@ -90,6 +97,12 @@ export class FlashcardDeckResolverBase {
           course: args.data.course
             ? {
                 connect: args.data.course,
+              }
+            : undefined,
+
+          courseSubSection: args.data.courseSubSection
+            ? {
+                connect: args.data.courseSubSection,
               }
             : undefined,
         },
@@ -170,6 +183,21 @@ export class FlashcardDeckResolverBase {
     @graphql.Parent() parent: FlashcardDeck
   ): Promise<Course | null> {
     const result = await this.service.getCourse(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @graphql.ResolveField(() => CourseSubSection, {
+    nullable: true,
+    name: "courseSubSection",
+  })
+  async getCourseSubSection(
+    @graphql.Parent() parent: FlashcardDeck
+  ): Promise<CourseSubSection | null> {
+    const result = await this.service.getCourseSubSection(parent.id);
 
     if (!result) {
       return null;

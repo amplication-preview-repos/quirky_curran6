@@ -13,6 +13,7 @@ import {
 } from "react-admin";
 
 import { COURSE_TITLE_FIELD } from "./CourseTitle";
+import { COURSESUBSECTION_TITLE_FIELD } from "../courseSubSection/CourseSubSectionTitle";
 
 export const CourseShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -64,9 +65,17 @@ export const CourseShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={COURSE_TITLE_FIELD} />
             </ReferenceField>
+            <ReferenceField
+              label="CourseSubSection"
+              source="coursesubsection.id"
+              reference="CourseSubSection"
+            >
+              <TextField source={COURSESUBSECTION_TITLE_FIELD} />
+            </ReferenceField>
             <DateField source="createdAt" label="Created At" />
             <TextField label="description" source="description" />
             <TextField label="ID" source="id" />
+            <BooleanField label="isSample" source="isSample" />
             <TextField label="lastUpdated" source="lastUpdated" />
             <TextField label="tags" source="tags" />
             <TextField label="title" source="title" />

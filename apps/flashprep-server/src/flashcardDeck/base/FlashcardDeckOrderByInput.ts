@@ -39,6 +39,17 @@ class FlashcardDeckOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  courseSubSectionId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   createdAt?: SortOrder;
 
   @ApiProperty({
@@ -62,6 +73,17 @@ class FlashcardDeckOrderByInput {
     nullable: true,
   })
   id?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  isSample?: SortOrder;
 
   @ApiProperty({
     required: false,

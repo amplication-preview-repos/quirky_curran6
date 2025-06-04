@@ -29,10 +29,25 @@ export class AssetControllerBase {
   @swagger.ApiCreatedResponse({ type: Asset })
   async createAsset(@common.Body() data: AssetCreateInput): Promise<Asset> {
     return await this.service.createAsset({
-      data: data,
+      data: {
+        ...data,
+
+        courseSubSection: data.courseSubSection
+          ? {
+              connect: data.courseSubSection,
+            }
+          : undefined,
+      },
       select: {
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
+        isSample: true,
         updatedAt: true,
       },
     });
@@ -46,8 +61,15 @@ export class AssetControllerBase {
     return this.service.assets({
       ...args,
       select: {
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
+        isSample: true,
         updatedAt: true,
       },
     });
@@ -62,8 +84,15 @@ export class AssetControllerBase {
     const result = await this.service.asset({
       where: params,
       select: {
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         id: true,
+        isSample: true,
         updatedAt: true,
       },
     });
@@ -85,10 +114,25 @@ export class AssetControllerBase {
     try {
       return await this.service.updateAsset({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          courseSubSection: data.courseSubSection
+            ? {
+                connect: data.courseSubSection,
+              }
+            : undefined,
+        },
         select: {
+          courseSubSection: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
+          isSample: true,
           updatedAt: true,
         },
       });
@@ -112,8 +156,15 @@ export class AssetControllerBase {
       return await this.service.deleteAsset({
         where: params,
         select: {
+          courseSubSection: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           id: true,
+          isSample: true,
           updatedAt: true,
         },
       });

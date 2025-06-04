@@ -11,9 +11,11 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
+import { AssetListRelationFilter } from "../../asset/base/AssetListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
+import { FlashcardDeckListRelationFilter } from "../../flashcardDeck/base/FlashcardDeckListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
@@ -21,6 +23,18 @@ import { IntNullableFilter } from "../../util/IntNullableFilter";
 
 @InputType()
 class CourseSubSectionWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AssetListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AssetListRelationFilter)
+  @IsOptional()
+  @Field(() => AssetListRelationFilter, {
+    nullable: true,
+  })
+  assets?: AssetListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: () => CourseSectionWhereUniqueInput,
@@ -32,6 +46,18 @@ class CourseSubSectionWhereInput {
     nullable: true,
   })
   courseSection?: CourseSectionWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardDeckListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardDeckListRelationFilter)
+  @IsOptional()
+  @Field(() => FlashcardDeckListRelationFilter, {
+    nullable: true,
+  })
+  flashcardDecks?: FlashcardDeckListRelationFilter;
 
   @ApiProperty({
     required: false,

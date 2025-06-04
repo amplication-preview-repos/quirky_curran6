@@ -18,8 +18,10 @@ import {
   IsDate,
   IsString,
   MaxLength,
+  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { CourseSubSection } from "../../courseSubSection/base/CourseSubSection";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
 import { FlashcardSession } from "../../flashcardSession/base/FlashcardSession";
 import { Flashcard } from "../../flashcard/base/Flashcard";
@@ -34,6 +36,15 @@ class FlashcardDeck {
   @Type(() => Course)
   @IsOptional()
   course?: Course | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => CourseSubSection,
+  })
+  @ValidateNested()
+  @Type(() => CourseSubSection)
+  @IsOptional()
+  courseSubSection?: CourseSubSection | null;
 
   @ApiProperty({
     required: true,
@@ -89,6 +100,17 @@ class FlashcardDeck {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isSample!: boolean | null;
 
   @ApiProperty({
     required: false,

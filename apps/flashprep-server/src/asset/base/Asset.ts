@@ -11,11 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import { CourseSubSection } from "../../courseSubSection/base/CourseSubSection";
+import {
+  ValidateNested,
+  IsOptional,
+  IsDate,
+  IsString,
+  IsBoolean,
+} from "class-validator";
 import { Type } from "class-transformer";
 
 @ObjectType()
 class Asset {
+  @ApiProperty({
+    required: false,
+    type: () => CourseSubSection,
+  })
+  @ValidateNested()
+  @Type(() => CourseSubSection)
+  @IsOptional()
+  courseSubSection?: CourseSubSection | null;
+
   @ApiProperty({
     required: true,
   })
@@ -31,6 +47,17 @@ class Asset {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isSample!: boolean | null;
 
   @ApiProperty({
     required: true,

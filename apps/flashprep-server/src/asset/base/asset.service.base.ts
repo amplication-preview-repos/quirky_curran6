@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Asset as PrismaAsset } from "@prisma/client";
+import {
+  Prisma,
+  Asset as PrismaAsset,
+  CourseSubSection as PrismaCourseSubSection,
+} from "@prisma/client";
 
 export class AssetServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -33,5 +37,15 @@ export class AssetServiceBase {
   }
   async deleteAsset(args: Prisma.AssetDeleteArgs): Promise<PrismaAsset> {
     return this.prisma.asset.delete(args);
+  }
+
+  async getCourseSubSection(
+    parentId: string
+  ): Promise<PrismaCourseSubSection | null> {
+    return this.prisma.asset
+      .findUnique({
+        where: { id: parentId },
+      })
+      .courseSubSection();
   }
 }

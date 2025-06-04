@@ -262,9 +262,16 @@ export class CourseControllerBase {
           },
         },
 
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         id: true,
+        isSample: true,
         lastUpdated: true,
         tags: true,
         title: true,

@@ -9,5 +9,36 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class AssetUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { CourseSubSectionWhereUniqueInput } from "../../courseSubSection/base/CourseSubSectionWhereUniqueInput";
+import { ValidateNested, IsOptional, IsBoolean } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class AssetUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => CourseSubSectionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CourseSubSectionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CourseSubSectionWhereUniqueInput, {
+    nullable: true,
+  })
+  courseSubSection?: CourseSubSectionWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isSample?: boolean | null;
+}
+
 export { AssetUpdateInput as AssetUpdateInput };

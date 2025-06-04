@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
+import { AssetUpdateManyWithoutCourseSubSectionsInput } from "./AssetUpdateManyWithoutCourseSubSectionsInput";
 
 import {
   ValidateNested,
@@ -25,9 +25,23 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
+import { FlashcardDeckUpdateManyWithoutCourseSubSectionsInput } from "./FlashcardDeckUpdateManyWithoutCourseSubSectionsInput";
 
 @InputType()
 class CourseSubSectionUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AssetUpdateManyWithoutCourseSubSectionsInput,
+  })
+  @ValidateNested()
+  @Type(() => AssetUpdateManyWithoutCourseSubSectionsInput)
+  @IsOptional()
+  @Field(() => AssetUpdateManyWithoutCourseSubSectionsInput, {
+    nullable: true,
+  })
+  assets?: AssetUpdateManyWithoutCourseSubSectionsInput;
+
   @ApiProperty({
     required: false,
     type: () => CourseSectionWhereUniqueInput,
@@ -39,6 +53,18 @@ class CourseSubSectionUpdateInput {
     nullable: true,
   })
   courseSection?: CourseSectionWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardDeckUpdateManyWithoutCourseSubSectionsInput,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardDeckUpdateManyWithoutCourseSubSectionsInput)
+  @IsOptional()
+  @Field(() => FlashcardDeckUpdateManyWithoutCourseSubSectionsInput, {
+    nullable: true,
+  })
+  flashcardDecks?: FlashcardDeckUpdateManyWithoutCourseSubSectionsInput;
 
   @ApiProperty({
     required: false,

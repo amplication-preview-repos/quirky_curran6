@@ -11,12 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { CourseSubSectionWhereUniqueInput } from "../../courseSubSection/base/CourseSubSectionWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 
 @InputType()
 class AssetWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => CourseSubSectionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => CourseSubSectionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => CourseSubSectionWhereUniqueInput, {
+    nullable: true,
+  })
+  courseSubSection?: CourseSubSectionWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -27,6 +41,17 @@ class AssetWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  isSample?: BooleanNullableFilter;
 }
 
 export { AssetWhereInput as AssetWhereInput };

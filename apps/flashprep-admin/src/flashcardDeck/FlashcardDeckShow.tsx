@@ -7,15 +7,16 @@ import {
   ReferenceField,
   TextField,
   DateField,
+  BooleanField,
   ReferenceManyField,
   Datagrid,
-  BooleanField,
 } from "react-admin";
 
 import { FLASHCARD_TITLE_FIELD } from "../flashcard/FlashcardTitle";
 import { FLASHCARDDECK_TITLE_FIELD } from "./FlashcardDeckTitle";
 import { STUDENTPROFILE_TITLE_FIELD } from "../studentProfile/StudentProfileTitle";
 import { COURSE_TITLE_FIELD } from "../course/CourseTitle";
+import { COURSESUBSECTION_TITLE_FIELD } from "../courseSubSection/CourseSubSectionTitle";
 
 export const FlashcardDeckShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -24,9 +25,17 @@ export const FlashcardDeckShow = (props: ShowProps): React.ReactElement => {
         <ReferenceField label="Course" source="course.id" reference="Course">
           <TextField source={COURSE_TITLE_FIELD} />
         </ReferenceField>
+        <ReferenceField
+          label="CourseSubSection"
+          source="coursesubsection.id"
+          reference="CourseSubSection"
+        >
+          <TextField source={COURSESUBSECTION_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="description" source="description" />
         <TextField label="ID" source="id" />
+        <BooleanField label="isSample" source="isSample" />
         <TextField label="lastUpdated" source="lastUpdated" />
         <TextField label="tags" source="tags" />
         <TextField label="title" source="title" />

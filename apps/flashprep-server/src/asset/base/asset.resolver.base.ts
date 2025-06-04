@@ -17,7 +17,10 @@ import { Asset } from "./Asset";
 import { AssetCountArgs } from "./AssetCountArgs";
 import { AssetFindManyArgs } from "./AssetFindManyArgs";
 import { AssetFindUniqueArgs } from "./AssetFindUniqueArgs";
+import { CreateAssetArgs } from "./CreateAssetArgs";
+import { UpdateAssetArgs } from "./UpdateAssetArgs";
 import { DeleteAssetArgs } from "./DeleteAssetArgs";
+import { CourseSubSection } from "../../courseSubSection/base/CourseSubSection";
 import { AssetService } from "../asset.service";
 @graphql.Resolver(() => Asset)
 export class AssetResolverBase {
@@ -49,6 +52,49 @@ export class AssetResolverBase {
   }
 
   @graphql.Mutation(() => Asset)
+  async createAsset(@graphql.Args() args: CreateAssetArgs): Promise<Asset> {
+    return await this.service.createAsset({
+      ...args,
+      data: {
+        ...args.data,
+
+        courseSubSection: args.data.courseSubSection
+          ? {
+              connect: args.data.courseSubSection,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @graphql.Mutation(() => Asset)
+  async updateAsset(
+    @graphql.Args() args: UpdateAssetArgs
+  ): Promise<Asset | null> {
+    try {
+      return await this.service.updateAsset({
+        ...args,
+        data: {
+          ...args.data,
+
+          courseSubSection: args.data.courseSubSection
+            ? {
+                connect: args.data.courseSubSection,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
+  @graphql.Mutation(() => Asset)
   async deleteAsset(
     @graphql.Args() args: DeleteAssetArgs
   ): Promise<Asset | null> {
@@ -62,5 +108,20 @@ export class AssetResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => CourseSubSection, {
+    nullable: true,
+    name: "courseSubSection",
+  })
+  async getCourseSubSection(
+    @graphql.Parent() parent: Asset
+  ): Promise<CourseSubSection | null> {
+    const result = await this.service.getCourseSubSection(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

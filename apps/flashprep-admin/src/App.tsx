@@ -21,10 +21,6 @@ import { StudentProfileList } from "./studentProfile/StudentProfileList";
 import { StudentProfileCreate } from "./studentProfile/StudentProfileCreate";
 import { StudentProfileEdit } from "./studentProfile/StudentProfileEdit";
 import { StudentProfileShow } from "./studentProfile/StudentProfileShow";
-import { ReferralList } from "./referral/ReferralList";
-import { ReferralCreate } from "./referral/ReferralCreate";
-import { ReferralEdit } from "./referral/ReferralEdit";
-import { ReferralShow } from "./referral/ReferralShow";
 import { FlashcardList } from "./flashcard/FlashcardList";
 import { FlashcardCreate } from "./flashcard/FlashcardCreate";
 import { FlashcardEdit } from "./flashcard/FlashcardEdit";
@@ -37,6 +33,14 @@ import { CategoryTagList } from "./categoryTag/CategoryTagList";
 import { CategoryTagCreate } from "./categoryTag/CategoryTagCreate";
 import { CategoryTagEdit } from "./categoryTag/CategoryTagEdit";
 import { CategoryTagShow } from "./categoryTag/CategoryTagShow";
+import { AssetList } from "./asset/AssetList";
+import { AssetCreate } from "./asset/AssetCreate";
+import { AssetEdit } from "./asset/AssetEdit";
+import { AssetShow } from "./asset/AssetShow";
+import { FlashcardDeckList } from "./flashcardDeck/FlashcardDeckList";
+import { FlashcardDeckCreate } from "./flashcardDeck/FlashcardDeckCreate";
+import { FlashcardDeckEdit } from "./flashcardDeck/FlashcardDeckEdit";
+import { FlashcardDeckShow } from "./flashcardDeck/FlashcardDeckShow";
 import { EnrollmentList } from "./enrollment/EnrollmentList";
 import { EnrollmentCreate } from "./enrollment/EnrollmentCreate";
 import { EnrollmentEdit } from "./enrollment/EnrollmentEdit";
@@ -49,14 +53,6 @@ import { TimetableEntryList } from "./timetableEntry/TimetableEntryList";
 import { TimetableEntryCreate } from "./timetableEntry/TimetableEntryCreate";
 import { TimetableEntryEdit } from "./timetableEntry/TimetableEntryEdit";
 import { TimetableEntryShow } from "./timetableEntry/TimetableEntryShow";
-import { AssetList } from "./asset/AssetList";
-import { AssetCreate } from "./asset/AssetCreate";
-import { AssetEdit } from "./asset/AssetEdit";
-import { AssetShow } from "./asset/AssetShow";
-import { FlashcardDeckList } from "./flashcardDeck/FlashcardDeckList";
-import { FlashcardDeckCreate } from "./flashcardDeck/FlashcardDeckCreate";
-import { FlashcardDeckEdit } from "./flashcardDeck/FlashcardDeckEdit";
-import { FlashcardDeckShow } from "./flashcardDeck/FlashcardDeckShow";
 import { OrderList } from "./order/OrderList";
 import { OrderCreate } from "./order/OrderCreate";
 import { OrderEdit } from "./order/OrderEdit";
@@ -65,6 +61,10 @@ import { SavedContentList } from "./savedContent/SavedContentList";
 import { SavedContentCreate } from "./savedContent/SavedContentCreate";
 import { SavedContentEdit } from "./savedContent/SavedContentEdit";
 import { SavedContentShow } from "./savedContent/SavedContentShow";
+import { ReferralList } from "./referral/ReferralList";
+import { ReferralCreate } from "./referral/ReferralCreate";
+import { ReferralEdit } from "./referral/ReferralEdit";
+import { ReferralShow } from "./referral/ReferralShow";
 import { ErrorCardList } from "./errorCard/ErrorCardList";
 import { ErrorCardCreate } from "./errorCard/ErrorCardCreate";
 import { ErrorCardEdit } from "./errorCard/ErrorCardEdit";
@@ -81,14 +81,14 @@ import { FlashcardSessionList } from "./flashcardSession/FlashcardSessionList";
 import { FlashcardSessionCreate } from "./flashcardSession/FlashcardSessionCreate";
 import { FlashcardSessionEdit } from "./flashcardSession/FlashcardSessionEdit";
 import { FlashcardSessionShow } from "./flashcardSession/FlashcardSessionShow";
-import { CourseSubSectionList } from "./courseSubSection/CourseSubSectionList";
-import { CourseSubSectionCreate } from "./courseSubSection/CourseSubSectionCreate";
-import { CourseSubSectionEdit } from "./courseSubSection/CourseSubSectionEdit";
-import { CourseSubSectionShow } from "./courseSubSection/CourseSubSectionShow";
 import { CourseSectionList } from "./courseSection/CourseSectionList";
 import { CourseSectionCreate } from "./courseSection/CourseSectionCreate";
 import { CourseSectionEdit } from "./courseSection/CourseSectionEdit";
 import { CourseSectionShow } from "./courseSection/CourseSectionShow";
+import { CourseSubSectionList } from "./courseSubSection/CourseSubSectionList";
+import { CourseSubSectionCreate } from "./courseSubSection/CourseSubSectionCreate";
+import { CourseSubSectionEdit } from "./courseSubSection/CourseSubSectionEdit";
+import { CourseSubSectionShow } from "./courseSubSection/CourseSubSectionShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -131,13 +131,6 @@ const App = (): React.ReactElement => {
           show={StudentProfileShow}
         />
         <Resource
-          name="Referral"
-          list={ReferralList}
-          edit={ReferralEdit}
-          create={ReferralCreate}
-          show={ReferralShow}
-        />
-        <Resource
           name="Flashcard"
           list={FlashcardList}
           edit={FlashcardEdit}
@@ -157,6 +150,20 @@ const App = (): React.ReactElement => {
           edit={CategoryTagEdit}
           create={CategoryTagCreate}
           show={CategoryTagShow}
+        />
+        <Resource
+          name="Asset"
+          list={AssetList}
+          edit={AssetEdit}
+          create={AssetCreate}
+          show={AssetShow}
+        />
+        <Resource
+          name="FlashcardDeck"
+          list={FlashcardDeckList}
+          edit={FlashcardDeckEdit}
+          create={FlashcardDeckCreate}
+          show={FlashcardDeckShow}
         />
         <Resource
           name="Enrollment"
@@ -180,20 +187,6 @@ const App = (): React.ReactElement => {
           show={TimetableEntryShow}
         />
         <Resource
-          name="Asset"
-          list={AssetList}
-          edit={AssetEdit}
-          create={AssetCreate}
-          show={AssetShow}
-        />
-        <Resource
-          name="FlashcardDeck"
-          list={FlashcardDeckList}
-          edit={FlashcardDeckEdit}
-          create={FlashcardDeckCreate}
-          show={FlashcardDeckShow}
-        />
-        <Resource
           name="Order"
           list={OrderList}
           edit={OrderEdit}
@@ -206,6 +199,13 @@ const App = (): React.ReactElement => {
           edit={SavedContentEdit}
           create={SavedContentCreate}
           show={SavedContentShow}
+        />
+        <Resource
+          name="Referral"
+          list={ReferralList}
+          edit={ReferralEdit}
+          create={ReferralCreate}
+          show={ReferralShow}
         />
         <Resource
           name="ErrorCard"
@@ -236,18 +236,18 @@ const App = (): React.ReactElement => {
           show={FlashcardSessionShow}
         />
         <Resource
-          name="CourseSubSection"
-          list={CourseSubSectionList}
-          edit={CourseSubSectionEdit}
-          create={CourseSubSectionCreate}
-          show={CourseSubSectionShow}
-        />
-        <Resource
           name="CourseSection"
           list={CourseSectionList}
           edit={CourseSectionEdit}
           create={CourseSectionCreate}
           show={CourseSectionShow}
+        />
+        <Resource
+          name="CourseSubSection"
+          list={CourseSubSectionList}
+          edit={CourseSubSectionEdit}
+          create={CourseSubSectionCreate}
+          show={CourseSubSectionShow}
         />
       </Admin>
     </div>

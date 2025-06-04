@@ -41,12 +41,6 @@ model StudentProfile {
   updatedAt         DateTime           @updatedAt
 }
 
-model Referral {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
 model Flashcard {
   backContent             String?
   cardType                String?
@@ -86,6 +80,33 @@ model CategoryTag {
   updatedAt DateTime @updatedAt
 }
 
+model Asset {
+  courseSubSection   CourseSubSection? @relation(fields: [courseSubSectionId], references: [id])
+  courseSubSectionId String?
+  createdAt          DateTime          @default(now())
+  id                 String            @id @default(cuid())
+  isSample           Boolean?
+  updatedAt          DateTime          @updatedAt
+}
+
+model FlashcardDeck {
+  course             Course?            @relation(fields: [courseId], references: [id])
+  courseId           String?
+  courseSubSection   CourseSubSection?  @relation(fields: [courseSubSectionId], references: [id])
+  courseSubSectionId String?
+  createdAt          DateTime           @default(now())
+  description        String?
+  errorCards         ErrorCard[]
+  flashcardSessions  FlashcardSession[]
+  flashcards         Flashcard[]
+  id                 String             @id @default(cuid())
+  isSample           Boolean?
+  lastUpdated        DateTime?
+  tags               String?
+  title              String?
+  updatedAt          DateTime           @updatedAt
+}
+
 model Enrollment {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
@@ -104,27 +125,6 @@ model TimetableEntry {
   updatedAt DateTime @updatedAt
 }
 
-model Asset {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
-model FlashcardDeck {
-  course            Course?            @relation(fields: [courseId], references: [id])
-  courseId          String?
-  createdAt         DateTime           @default(now())
-  description       String?
-  errorCards        ErrorCard[]
-  flashcardSessions FlashcardSession[]
-  flashcards        Flashcard[]
-  id                String             @id @default(cuid())
-  lastUpdated       DateTime?
-  tags              String?
-  title             String?
-  updatedAt         DateTime           @updatedAt
-}
-
 model Order {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
@@ -132,6 +132,12 @@ model Order {
 }
 
 model SavedContent {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Referral {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
@@ -194,19 +200,6 @@ model FlashcardSession {
   updatedAt               DateTime                @updatedAt
 }
 
-model CourseSubSection {
-  courseSection   CourseSection? @relation(fields: [courseSectionId], references: [id])
-  courseSectionId String?
-  createdAt       DateTime       @default(now())
-  icon            String?
-  id              String         @id @default(cuid())
-  isLocked        Boolean?
-  isSample        Boolean?
-  order           Int?
-  title           String?
-  updatedAt       DateTime       @updatedAt
-}
-
 model CourseSection {
   course            Course?            @relation(fields: [courseId], references: [id])
   courseId          String?
@@ -217,4 +210,19 @@ model CourseSection {
   order             Int?
   title             String?
   updatedAt         DateTime           @updatedAt
+}
+
+model CourseSubSection {
+  assets          Asset[]
+  courseSection   CourseSection?  @relation(fields: [courseSectionId], references: [id])
+  courseSectionId String?
+  createdAt       DateTime        @default(now())
+  flashcardDecks  FlashcardDeck[]
+  icon            String?
+  id              String          @id @default(cuid())
+  isLocked        Boolean?
+  isSample        Boolean?
+  order           Int?
+  title           String?
+  updatedAt       DateTime        @updatedAt
 }

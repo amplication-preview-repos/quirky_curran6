@@ -18,6 +18,7 @@ import {
   FlashcardSession as PrismaFlashcardSession,
   Flashcard as PrismaFlashcard,
   Course as PrismaCourse,
+  CourseSubSection as PrismaCourseSubSection,
 } from "@prisma/client";
 
 export class FlashcardDeckServiceBase {
@@ -94,5 +95,15 @@ export class FlashcardDeckServiceBase {
         where: { id: parentId },
       })
       .course();
+  }
+
+  async getCourseSubSection(
+    parentId: string
+  ): Promise<PrismaCourseSubSection | null> {
+    return this.prisma.flashcardDeck
+      .findUnique({
+        where: { id: parentId },
+      })
+      .courseSubSection();
   }
 }

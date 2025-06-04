@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { CourseSection } from "../../courseSection/base/CourseSection";
+import { Asset } from "../../asset/base/Asset";
 
 import {
   ValidateNested,
@@ -26,9 +26,20 @@ import {
 } from "class-validator";
 
 import { Type } from "class-transformer";
+import { CourseSection } from "../../courseSection/base/CourseSection";
+import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
 
 @ObjectType()
 class CourseSubSection {
+  @ApiProperty({
+    required: false,
+    type: () => [Asset],
+  })
+  @ValidateNested()
+  @Type(() => Asset)
+  @IsOptional()
+  assets?: Array<Asset>;
+
   @ApiProperty({
     required: false,
     type: () => CourseSection,
@@ -45,6 +56,15 @@ class CourseSubSection {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FlashcardDeck],
+  })
+  @ValidateNested()
+  @Type(() => FlashcardDeck)
+  @IsOptional()
+  flashcardDecks?: Array<FlashcardDeck>;
 
   @ApiProperty({
     required: false,

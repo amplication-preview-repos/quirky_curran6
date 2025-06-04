@@ -20,6 +20,10 @@ import { CourseSubSectionFindUniqueArgs } from "./CourseSubSectionFindUniqueArgs
 import { CreateCourseSubSectionArgs } from "./CreateCourseSubSectionArgs";
 import { UpdateCourseSubSectionArgs } from "./UpdateCourseSubSectionArgs";
 import { DeleteCourseSubSectionArgs } from "./DeleteCourseSubSectionArgs";
+import { AssetFindManyArgs } from "../../asset/base/AssetFindManyArgs";
+import { Asset } from "../../asset/base/Asset";
+import { FlashcardDeckFindManyArgs } from "../../flashcardDeck/base/FlashcardDeckFindManyArgs";
+import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
 import { CourseSection } from "../../courseSection/base/CourseSection";
 import { CourseSubSectionService } from "../courseSubSection.service";
 @graphql.Resolver(() => CourseSubSection)
@@ -112,6 +116,34 @@ export class CourseSubSectionResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Asset], { name: "assets" })
+  async findAssets(
+    @graphql.Parent() parent: CourseSubSection,
+    @graphql.Args() args: AssetFindManyArgs
+  ): Promise<Asset[]> {
+    const results = await this.service.findAssets(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [FlashcardDeck], { name: "flashcardDecks" })
+  async findFlashcardDecks(
+    @graphql.Parent() parent: CourseSubSection,
+    @graphql.Args() args: FlashcardDeckFindManyArgs
+  ): Promise<FlashcardDeck[]> {
+    const results = await this.service.findFlashcardDecks(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => CourseSection, {

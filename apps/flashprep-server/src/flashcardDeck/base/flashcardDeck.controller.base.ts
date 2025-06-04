@@ -48,6 +48,12 @@ export class FlashcardDeckControllerBase {
               connect: data.course,
             }
           : undefined,
+
+        courseSubSection: data.courseSubSection
+          ? {
+              connect: data.courseSubSection,
+            }
+          : undefined,
       },
       select: {
         course: {
@@ -56,9 +62,16 @@ export class FlashcardDeckControllerBase {
           },
         },
 
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         id: true,
+        isSample: true,
         lastUpdated: true,
         tags: true,
         title: true,
@@ -83,9 +96,16 @@ export class FlashcardDeckControllerBase {
           },
         },
 
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         id: true,
+        isSample: true,
         lastUpdated: true,
         tags: true,
         title: true,
@@ -109,9 +129,16 @@ export class FlashcardDeckControllerBase {
           },
         },
 
+        courseSubSection: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         description: true,
         id: true,
+        isSample: true,
         lastUpdated: true,
         tags: true,
         title: true,
@@ -144,6 +171,12 @@ export class FlashcardDeckControllerBase {
                 connect: data.course,
               }
             : undefined,
+
+          courseSubSection: data.courseSubSection
+            ? {
+                connect: data.courseSubSection,
+              }
+            : undefined,
         },
         select: {
           course: {
@@ -152,9 +185,16 @@ export class FlashcardDeckControllerBase {
             },
           },
 
+          courseSubSection: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           id: true,
+          isSample: true,
           lastUpdated: true,
           tags: true,
           title: true,
@@ -187,9 +227,16 @@ export class FlashcardDeckControllerBase {
             },
           },
 
+          courseSubSection: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           description: true,
           id: true,
+          isSample: true,
           lastUpdated: true,
           tags: true,
           title: true,
