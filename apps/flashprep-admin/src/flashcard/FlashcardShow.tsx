@@ -9,11 +9,13 @@ import {
   ReferenceField,
   ReferenceManyField,
   Datagrid,
+  BooleanField,
 } from "react-admin";
 
 import { FLASHCARD_TITLE_FIELD } from "./FlashcardTitle";
 import { FLASHCARDDECK_TITLE_FIELD } from "../flashcardDeck/FlashcardDeckTitle";
 import { STUDENTPROFILE_TITLE_FIELD } from "../studentProfile/StudentProfileTitle";
+import { FLASHCARDSESSION_TITLE_FIELD } from "../flashcardSession/FlashcardSessionTitle";
 
 export const FlashcardShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -66,6 +68,35 @@ export const FlashcardShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={STUDENTPROFILE_TITLE_FIELD} />
             </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="FlashcardSessionEntry"
+          target="flashcardId"
+          label="FlashcardSessionEntries"
+        >
+          <Datagrid rowClick="show" bulkActionButtons={false}>
+            <BooleanField label="bookmarked" source="bookmarked" />
+            <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="flashcard"
+              source="flashcard.id"
+              reference="Flashcard"
+            >
+              <TextField source={FLASHCARD_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="flashcardSession"
+              source="flashcardsession.id"
+              reference="FlashcardSession"
+            >
+              <TextField source={FLASHCARDSESSION_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ID" source="id" />
+            <TextField label="microbitsMarked" source="microbitsMarked" />
+            <TextField label="rating" source="rating" />
+            <TextField label="timeSpent" source="timeSpent" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

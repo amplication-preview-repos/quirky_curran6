@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ErrorCardCreateNestedManyWithoutStudentProfilesInput } from "./ErrorCardCreateNestedManyWithoutStudentProfilesInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { FlashcardSessionCreateNestedManyWithoutStudentProfilesInput } from "./FlashcardSessionCreateNestedManyWithoutStudentProfilesInput";
 
 @InputType()
 class StudentProfileCreateInput {
@@ -28,6 +29,18 @@ class StudentProfileCreateInput {
     nullable: true,
   })
   errorCards?: ErrorCardCreateNestedManyWithoutStudentProfilesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionCreateNestedManyWithoutStudentProfilesInput,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionCreateNestedManyWithoutStudentProfilesInput)
+  @IsOptional()
+  @Field(() => FlashcardSessionCreateNestedManyWithoutStudentProfilesInput, {
+    nullable: true,
+  })
+  flashcardSessions?: FlashcardSessionCreateNestedManyWithoutStudentProfilesInput;
 }
 
 export { StudentProfileCreateInput as StudentProfileCreateInput };

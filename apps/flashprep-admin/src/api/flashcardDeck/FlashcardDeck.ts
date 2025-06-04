@@ -1,5 +1,6 @@
 import { Course } from "../course/Course";
 import { ErrorCard } from "../errorCard/ErrorCard";
+import { FlashcardSession } from "../flashcardSession/FlashcardSession";
 import { Flashcard } from "../flashcard/Flashcard";
 
 export type FlashcardDeck = {
@@ -7,6 +8,7 @@ export type FlashcardDeck = {
   createdAt: Date;
   description: string | null;
   errorCards?: Array<ErrorCard>;
+  flashcardSessions?: Array<FlashcardSession>;
   flashcards?: Array<Flashcard>;
   id: string;
   lastUpdated: Date | null;

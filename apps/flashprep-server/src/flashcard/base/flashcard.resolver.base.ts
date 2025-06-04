@@ -22,6 +22,8 @@ import { UpdateFlashcardArgs } from "./UpdateFlashcardArgs";
 import { DeleteFlashcardArgs } from "./DeleteFlashcardArgs";
 import { ErrorCardFindManyArgs } from "../../errorCard/base/ErrorCardFindManyArgs";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
+import { FlashcardSessionEntryFindManyArgs } from "../../flashcardSessionEntry/base/FlashcardSessionEntryFindManyArgs";
+import { FlashcardSessionEntry } from "../../flashcardSessionEntry/base/FlashcardSessionEntry";
 import { MicrobitFindManyArgs } from "../../microbit/base/MicrobitFindManyArgs";
 import { Microbit } from "../../microbit/base/Microbit";
 import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
@@ -124,6 +126,25 @@ export class FlashcardResolverBase {
     @graphql.Args() args: ErrorCardFindManyArgs
   ): Promise<ErrorCard[]> {
     const results = await this.service.findErrorCards(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [FlashcardSessionEntry], {
+    name: "flashcardSessionEntries",
+  })
+  async findFlashcardSessionEntries(
+    @graphql.Parent() parent: Flashcard,
+    @graphql.Args() args: FlashcardSessionEntryFindManyArgs
+  ): Promise<FlashcardSessionEntry[]> {
+    const results = await this.service.findFlashcardSessionEntries(
+      parent.id,
+      args
+    );
 
     if (!results) {
       return [];

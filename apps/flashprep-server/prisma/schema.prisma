@@ -13,17 +13,18 @@ model WalletTransaction {
   updatedAt DateTime @updatedAt
 }
 
-model StudentProfile {
-  createdAt  DateTime    @default(now())
-  errorCards ErrorCard[]
-  id         String      @id @default(cuid())
-  updatedAt  DateTime    @updatedAt
-}
-
 model CoursePricing {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
+}
+
+model StudentProfile {
+  createdAt         DateTime           @default(now())
+  errorCards        ErrorCard[]
+  flashcardSessions FlashcardSession[]
+  id                String             @id @default(cuid())
+  updatedAt         DateTime           @updatedAt
 }
 
 model Course {
@@ -31,6 +32,24 @@ model Course {
   flashcardDecks FlashcardDeck[]
   id             String          @id @default(cuid())
   updatedAt      DateTime        @updatedAt
+}
+
+model Flashcard {
+  backContent             String?
+  cardType                String?
+  correctOption           String?
+  createdAt               DateTime                @default(now())
+  errorCards              ErrorCard[]
+  flashcardDeck           FlashcardDeck?          @relation(fields: [flashcardDeckId], references: [id])
+  flashcardDeckId         String?
+  flashcardSessionEntries FlashcardSessionEntry[]
+  frontContent            String?
+  hint                    String?
+  id                      String                  @id @default(cuid())
+  microbits               Microbit[]
+  options                 Json?
+  tags                    String?
+  updatedAt               DateTime                @updatedAt
 }
 
 model Microbit {
@@ -54,20 +73,6 @@ model CategoryTag {
   updatedAt DateTime @updatedAt
 }
 
-model FlashcardDeck {
-  course      Course?     @relation(fields: [courseId], references: [id])
-  courseId    String?
-  createdAt   DateTime    @default(now())
-  description String?
-  errorCards  ErrorCard[]
-  flashcards  Flashcard[]
-  id          String      @id @default(cuid())
-  lastUpdated DateTime?
-  tags        String?
-  title       String?
-  updatedAt   DateTime    @updatedAt
-}
-
 model Enrollment {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
@@ -86,27 +91,25 @@ model TimetableEntry {
   updatedAt DateTime @updatedAt
 }
 
-model Flashcard {
-  backContent     String?
-  cardType        String?
-  correctOption   String?
-  createdAt       DateTime       @default(now())
-  errorCards      ErrorCard[]
-  flashcardDeck   FlashcardDeck? @relation(fields: [flashcardDeckId], references: [id])
-  flashcardDeckId String?
-  frontContent    String?
-  hint            String?
-  id              String         @id @default(cuid())
-  microbits       Microbit[]
-  options         Json?
-  tags            String?
-  updatedAt       DateTime       @updatedAt
-}
-
 model Asset {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
+}
+
+model FlashcardDeck {
+  course            Course?            @relation(fields: [courseId], references: [id])
+  courseId          String?
+  createdAt         DateTime           @default(now())
+  description       String?
+  errorCards        ErrorCard[]
+  flashcardSessions FlashcardSession[]
+  flashcards        Flashcard[]
+  id                String             @id @default(cuid())
+  lastUpdated       DateTime?
+  tags              String?
+  title             String?
+  updatedAt         DateTime           @updatedAt
 }
 
 model Order {
@@ -150,4 +153,36 @@ model User {
   roles     Json
   updatedAt DateTime @updatedAt
   username  String   @unique
+}
+
+model FlashcardSessionEntry {
+  bookmarked         Boolean?
+  createdAt          DateTime          @default(now())
+  flashcard          Flashcard?        @relation(fields: [flashcardId], references: [id])
+  flashcardId        String?
+  flashcardSession   FlashcardSession? @relation(fields: [flashcardSessionId], references: [id])
+  flashcardSessionId String?
+  id                 String            @id @default(cuid())
+  microbitsMarked    Json?
+  rating             String?
+  timeSpent          Int?
+  updatedAt          DateTime          @updatedAt
+}
+
+model FlashcardSession {
+  completed               Boolean?
+  createdAt               DateTime                @default(now())
+  endTime                 DateTime?
+  flashcardDeck           FlashcardDeck?          @relation(fields: [flashcardDeckId], references: [id])
+  flashcardDeckId         String?
+  flashcardSessionEntries FlashcardSessionEntry[]
+  id                      String                  @id @default(cuid())
+  progress                Float?
+  sessionType             String?
+  shuffleMode             Boolean?
+  startTime               DateTime?
+  studentProfile          StudentProfile?         @relation(fields: [studentProfileId], references: [id])
+  studentProfileId        String?
+  summaryStats            Json?
+  updatedAt               DateTime                @updatedAt
 }

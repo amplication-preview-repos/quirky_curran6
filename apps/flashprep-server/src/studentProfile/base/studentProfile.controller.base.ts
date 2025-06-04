@@ -25,6 +25,9 @@ import { StudentProfileUpdateInput } from "./StudentProfileUpdateInput";
 import { ErrorCardFindManyArgs } from "../../errorCard/base/ErrorCardFindManyArgs";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
 import { ErrorCardWhereUniqueInput } from "../../errorCard/base/ErrorCardWhereUniqueInput";
+import { FlashcardSessionFindManyArgs } from "../../flashcardSession/base/FlashcardSessionFindManyArgs";
+import { FlashcardSession } from "../../flashcardSession/base/FlashcardSession";
+import { FlashcardSessionWhereUniqueInput } from "../../flashcardSession/base/FlashcardSessionWhereUniqueInput";
 
 export class StudentProfileControllerBase {
   constructor(protected readonly service: StudentProfileService) {}
@@ -219,6 +222,101 @@ export class StudentProfileControllerBase {
   ): Promise<void> {
     const data = {
       errorCards: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateStudentProfile({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Get("/:id/flashcardSessions")
+  @ApiNestedQuery(FlashcardSessionFindManyArgs)
+  async findFlashcardSessions(
+    @common.Req() request: Request,
+    @common.Param() params: StudentProfileWhereUniqueInput
+  ): Promise<FlashcardSession[]> {
+    const query = plainToClass(FlashcardSessionFindManyArgs, request.query);
+    const results = await this.service.findFlashcardSessions(params.id, {
+      ...query,
+      select: {
+        completed: true,
+        createdAt: true,
+        endTime: true,
+
+        flashcardDeck: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        progress: true,
+        sessionType: true,
+        shuffleMode: true,
+        startTime: true,
+
+        studentProfile: {
+          select: {
+            id: true,
+          },
+        },
+
+        summaryStats: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/flashcardSessions")
+  async connectFlashcardSessions(
+    @common.Param() params: StudentProfileWhereUniqueInput,
+    @common.Body() body: FlashcardSessionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      flashcardSessions: {
+        connect: body,
+      },
+    };
+    await this.service.updateStudentProfile({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/flashcardSessions")
+  async updateFlashcardSessions(
+    @common.Param() params: StudentProfileWhereUniqueInput,
+    @common.Body() body: FlashcardSessionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      flashcardSessions: {
+        set: body,
+      },
+    };
+    await this.service.updateStudentProfile({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/flashcardSessions")
+  async disconnectFlashcardSessions(
+    @common.Param() params: StudentProfileWhereUniqueInput,
+    @common.Body() body: FlashcardSessionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      flashcardSessions: {
         disconnect: body,
       },
     };

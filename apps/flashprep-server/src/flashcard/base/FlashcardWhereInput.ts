@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { ErrorCardListRelationFilter } from "../../errorCard/base/ErrorCardListRelationFilter";
 import { FlashcardDeckWhereUniqueInput } from "../../flashcardDeck/base/FlashcardDeckWhereUniqueInput";
+import { FlashcardSessionEntryListRelationFilter } from "../../flashcardSessionEntry/base/FlashcardSessionEntryListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { MicrobitListRelationFilter } from "../../microbit/base/MicrobitListRelationFilter";
 import { JsonFilter } from "../../util/JsonFilter";
@@ -78,6 +79,18 @@ class FlashcardWhereInput {
     nullable: true,
   })
   flashcardDeck?: FlashcardDeckWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionEntryListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionEntryListRelationFilter)
+  @IsOptional()
+  @Field(() => FlashcardSessionEntryListRelationFilter, {
+    nullable: true,
+  })
+  flashcardSessionEntries?: FlashcardSessionEntryListRelationFilter;
 
   @ApiProperty({
     required: false,

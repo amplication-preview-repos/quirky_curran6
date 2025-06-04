@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ErrorCardListRelationFilter } from "../../errorCard/base/ErrorCardListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { FlashcardSessionListRelationFilter } from "../../flashcardSession/base/FlashcardSessionListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
@@ -29,6 +30,18 @@ class StudentProfileWhereInput {
     nullable: true,
   })
   errorCards?: ErrorCardListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionListRelationFilter)
+  @IsOptional()
+  @Field(() => FlashcardSessionListRelationFilter, {
+    nullable: true,
+  })
+  flashcardSessions?: FlashcardSessionListRelationFilter;
 
   @ApiProperty({
     required: false,

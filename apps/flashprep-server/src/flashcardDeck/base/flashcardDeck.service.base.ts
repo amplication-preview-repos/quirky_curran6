@@ -15,6 +15,7 @@ import {
   Prisma,
   FlashcardDeck as PrismaFlashcardDeck,
   ErrorCard as PrismaErrorCard,
+  FlashcardSession as PrismaFlashcardSession,
   Flashcard as PrismaFlashcard,
   Course as PrismaCourse,
 } from "@prisma/client";
@@ -63,6 +64,17 @@ export class FlashcardDeckServiceBase {
         where: { id: parentId },
       })
       .errorCards(args);
+  }
+
+  async findFlashcardSessions(
+    parentId: string,
+    args: Prisma.FlashcardSessionFindManyArgs
+  ): Promise<PrismaFlashcardSession[]> {
+    return this.prisma.flashcardDeck
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .flashcardSessions(args);
   }
 
   async findFlashcards(

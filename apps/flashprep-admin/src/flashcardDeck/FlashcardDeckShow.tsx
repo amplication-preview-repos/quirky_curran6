@@ -9,6 +9,7 @@ import {
   DateField,
   ReferenceManyField,
   Datagrid,
+  BooleanField,
 } from "react-admin";
 
 import { FLASHCARD_TITLE_FIELD } from "../flashcard/FlashcardTitle";
@@ -60,6 +61,38 @@ export const FlashcardDeckShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={STUDENTPROFILE_TITLE_FIELD} />
             </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
+        <ReferenceManyField
+          reference="FlashcardSession"
+          target="flashcardDeckId"
+          label="FlashcardSessions"
+        >
+          <Datagrid rowClick="show" bulkActionButtons={false}>
+            <BooleanField label="completed" source="completed" />
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="endTime" source="endTime" />
+            <ReferenceField
+              label="flashcardDeck"
+              source="flashcarddeck.id"
+              reference="FlashcardDeck"
+            >
+              <TextField source={FLASHCARDDECK_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="ID" source="id" />
+            <TextField label="progress" source="progress" />
+            <TextField label="sessionType" source="sessionType" />
+            <BooleanField label="shuffleMode" source="shuffleMode" />
+            <TextField label="startTime" source="startTime" />
+            <ReferenceField
+              label="studentProfile"
+              source="studentprofile.id"
+              reference="StudentProfile"
+            >
+              <TextField source={STUDENTPROFILE_TITLE_FIELD} />
+            </ReferenceField>
+            <TextField label="summaryStats" source="summaryStats" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

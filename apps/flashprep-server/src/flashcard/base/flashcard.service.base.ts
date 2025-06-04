@@ -15,6 +15,7 @@ import {
   Prisma,
   Flashcard as PrismaFlashcard,
   ErrorCard as PrismaErrorCard,
+  FlashcardSessionEntry as PrismaFlashcardSessionEntry,
   Microbit as PrismaMicrobit,
   FlashcardDeck as PrismaFlashcardDeck,
 } from "@prisma/client";
@@ -63,6 +64,17 @@ export class FlashcardServiceBase {
         where: { id: parentId },
       })
       .errorCards(args);
+  }
+
+  async findFlashcardSessionEntries(
+    parentId: string,
+    args: Prisma.FlashcardSessionEntryFindManyArgs
+  ): Promise<PrismaFlashcardSessionEntry[]> {
+    return this.prisma.flashcard
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .flashcardSessionEntries(args);
   }
 
   async findMicrobits(

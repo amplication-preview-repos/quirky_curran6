@@ -15,6 +15,7 @@ import {
   Prisma,
   StudentProfile as PrismaStudentProfile,
   ErrorCard as PrismaErrorCard,
+  FlashcardSession as PrismaFlashcardSession,
 } from "@prisma/client";
 
 export class StudentProfileServiceBase {
@@ -61,5 +62,16 @@ export class StudentProfileServiceBase {
         where: { id: parentId },
       })
       .errorCards(args);
+  }
+
+  async findFlashcardSessions(
+    parentId: string,
+    args: Prisma.FlashcardSessionFindManyArgs
+  ): Promise<PrismaFlashcardSession[]> {
+    return this.prisma.studentProfile
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .flashcardSessions(args);
   }
 }

@@ -20,6 +20,7 @@ import {
 import { ErrorCardCreateNestedManyWithoutFlashcardsInput } from "./ErrorCardCreateNestedManyWithoutFlashcardsInput";
 import { Type } from "class-transformer";
 import { FlashcardDeckWhereUniqueInput } from "../../flashcardDeck/base/FlashcardDeckWhereUniqueInput";
+import { FlashcardSessionEntryCreateNestedManyWithoutFlashcardsInput } from "./FlashcardSessionEntryCreateNestedManyWithoutFlashcardsInput";
 import { MicrobitCreateNestedManyWithoutFlashcardsInput } from "./MicrobitCreateNestedManyWithoutFlashcardsInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -86,6 +87,18 @@ class FlashcardCreateInput {
     nullable: true,
   })
   flashcardDeck?: FlashcardDeckWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionEntryCreateNestedManyWithoutFlashcardsInput,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionEntryCreateNestedManyWithoutFlashcardsInput)
+  @IsOptional()
+  @Field(() => FlashcardSessionEntryCreateNestedManyWithoutFlashcardsInput, {
+    nullable: true,
+  })
+  flashcardSessionEntries?: FlashcardSessionEntryCreateNestedManyWithoutFlashcardsInput;
 
   @ApiProperty({
     required: false,

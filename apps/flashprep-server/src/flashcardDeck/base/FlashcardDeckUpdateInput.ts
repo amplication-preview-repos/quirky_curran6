@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ErrorCardUpdateManyWithoutFlashcardDecksInput } from "./ErrorCardUpdateManyWithoutFlashcardDecksInput";
+import { FlashcardSessionUpdateManyWithoutFlashcardDecksInput } from "./FlashcardSessionUpdateManyWithoutFlashcardDecksInput";
 import { FlashcardUpdateManyWithoutFlashcardDecksInput } from "./FlashcardUpdateManyWithoutFlashcardDecksInput";
 
 @InputType()
@@ -60,6 +61,18 @@ class FlashcardDeckUpdateInput {
     nullable: true,
   })
   errorCards?: ErrorCardUpdateManyWithoutFlashcardDecksInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionUpdateManyWithoutFlashcardDecksInput,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionUpdateManyWithoutFlashcardDecksInput)
+  @IsOptional()
+  @Field(() => FlashcardSessionUpdateManyWithoutFlashcardDecksInput, {
+    nullable: true,
+  })
+  flashcardSessions?: FlashcardSessionUpdateManyWithoutFlashcardDecksInput;
 
   @ApiProperty({
     required: false,

@@ -9,18 +9,22 @@ import { WalletTransactionList } from "./walletTransaction/WalletTransactionList
 import { WalletTransactionCreate } from "./walletTransaction/WalletTransactionCreate";
 import { WalletTransactionEdit } from "./walletTransaction/WalletTransactionEdit";
 import { WalletTransactionShow } from "./walletTransaction/WalletTransactionShow";
-import { StudentProfileList } from "./studentProfile/StudentProfileList";
-import { StudentProfileCreate } from "./studentProfile/StudentProfileCreate";
-import { StudentProfileEdit } from "./studentProfile/StudentProfileEdit";
-import { StudentProfileShow } from "./studentProfile/StudentProfileShow";
 import { CoursePricingList } from "./coursePricing/CoursePricingList";
 import { CoursePricingCreate } from "./coursePricing/CoursePricingCreate";
 import { CoursePricingEdit } from "./coursePricing/CoursePricingEdit";
 import { CoursePricingShow } from "./coursePricing/CoursePricingShow";
+import { StudentProfileList } from "./studentProfile/StudentProfileList";
+import { StudentProfileCreate } from "./studentProfile/StudentProfileCreate";
+import { StudentProfileEdit } from "./studentProfile/StudentProfileEdit";
+import { StudentProfileShow } from "./studentProfile/StudentProfileShow";
 import { CourseList } from "./course/CourseList";
 import { CourseCreate } from "./course/CourseCreate";
 import { CourseEdit } from "./course/CourseEdit";
 import { CourseShow } from "./course/CourseShow";
+import { FlashcardList } from "./flashcard/FlashcardList";
+import { FlashcardCreate } from "./flashcard/FlashcardCreate";
+import { FlashcardEdit } from "./flashcard/FlashcardEdit";
+import { FlashcardShow } from "./flashcard/FlashcardShow";
 import { MicrobitList } from "./microbit/MicrobitList";
 import { MicrobitCreate } from "./microbit/MicrobitCreate";
 import { MicrobitEdit } from "./microbit/MicrobitEdit";
@@ -29,10 +33,6 @@ import { CategoryTagList } from "./categoryTag/CategoryTagList";
 import { CategoryTagCreate } from "./categoryTag/CategoryTagCreate";
 import { CategoryTagEdit } from "./categoryTag/CategoryTagEdit";
 import { CategoryTagShow } from "./categoryTag/CategoryTagShow";
-import { FlashcardDeckList } from "./flashcardDeck/FlashcardDeckList";
-import { FlashcardDeckCreate } from "./flashcardDeck/FlashcardDeckCreate";
-import { FlashcardDeckEdit } from "./flashcardDeck/FlashcardDeckEdit";
-import { FlashcardDeckShow } from "./flashcardDeck/FlashcardDeckShow";
 import { EnrollmentList } from "./enrollment/EnrollmentList";
 import { EnrollmentCreate } from "./enrollment/EnrollmentCreate";
 import { EnrollmentEdit } from "./enrollment/EnrollmentEdit";
@@ -45,14 +45,14 @@ import { TimetableEntryList } from "./timetableEntry/TimetableEntryList";
 import { TimetableEntryCreate } from "./timetableEntry/TimetableEntryCreate";
 import { TimetableEntryEdit } from "./timetableEntry/TimetableEntryEdit";
 import { TimetableEntryShow } from "./timetableEntry/TimetableEntryShow";
-import { FlashcardList } from "./flashcard/FlashcardList";
-import { FlashcardCreate } from "./flashcard/FlashcardCreate";
-import { FlashcardEdit } from "./flashcard/FlashcardEdit";
-import { FlashcardShow } from "./flashcard/FlashcardShow";
 import { AssetList } from "./asset/AssetList";
 import { AssetCreate } from "./asset/AssetCreate";
 import { AssetEdit } from "./asset/AssetEdit";
 import { AssetShow } from "./asset/AssetShow";
+import { FlashcardDeckList } from "./flashcardDeck/FlashcardDeckList";
+import { FlashcardDeckCreate } from "./flashcardDeck/FlashcardDeckCreate";
+import { FlashcardDeckEdit } from "./flashcardDeck/FlashcardDeckEdit";
+import { FlashcardDeckShow } from "./flashcardDeck/FlashcardDeckShow";
 import { OrderList } from "./order/OrderList";
 import { OrderCreate } from "./order/OrderCreate";
 import { OrderEdit } from "./order/OrderEdit";
@@ -73,6 +73,14 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
+import { FlashcardSessionEntryList } from "./flashcardSessionEntry/FlashcardSessionEntryList";
+import { FlashcardSessionEntryCreate } from "./flashcardSessionEntry/FlashcardSessionEntryCreate";
+import { FlashcardSessionEntryEdit } from "./flashcardSessionEntry/FlashcardSessionEntryEdit";
+import { FlashcardSessionEntryShow } from "./flashcardSessionEntry/FlashcardSessionEntryShow";
+import { FlashcardSessionList } from "./flashcardSession/FlashcardSessionList";
+import { FlashcardSessionCreate } from "./flashcardSession/FlashcardSessionCreate";
+import { FlashcardSessionEdit } from "./flashcardSession/FlashcardSessionEdit";
+import { FlashcardSessionShow } from "./flashcardSession/FlashcardSessionShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -94,13 +102,6 @@ const App = (): React.ReactElement => {
           show={WalletTransactionShow}
         />
         <Resource
-          name="StudentProfile"
-          list={StudentProfileList}
-          edit={StudentProfileEdit}
-          create={StudentProfileCreate}
-          show={StudentProfileShow}
-        />
-        <Resource
           name="CoursePricing"
           list={CoursePricingList}
           edit={CoursePricingEdit}
@@ -108,11 +109,25 @@ const App = (): React.ReactElement => {
           show={CoursePricingShow}
         />
         <Resource
+          name="StudentProfile"
+          list={StudentProfileList}
+          edit={StudentProfileEdit}
+          create={StudentProfileCreate}
+          show={StudentProfileShow}
+        />
+        <Resource
           name="Course"
           list={CourseList}
           edit={CourseEdit}
           create={CourseCreate}
           show={CourseShow}
+        />
+        <Resource
+          name="Flashcard"
+          list={FlashcardList}
+          edit={FlashcardEdit}
+          create={FlashcardCreate}
+          show={FlashcardShow}
         />
         <Resource
           name="Microbit"
@@ -127,13 +142,6 @@ const App = (): React.ReactElement => {
           edit={CategoryTagEdit}
           create={CategoryTagCreate}
           show={CategoryTagShow}
-        />
-        <Resource
-          name="FlashcardDeck"
-          list={FlashcardDeckList}
-          edit={FlashcardDeckEdit}
-          create={FlashcardDeckCreate}
-          show={FlashcardDeckShow}
         />
         <Resource
           name="Enrollment"
@@ -157,18 +165,18 @@ const App = (): React.ReactElement => {
           show={TimetableEntryShow}
         />
         <Resource
-          name="Flashcard"
-          list={FlashcardList}
-          edit={FlashcardEdit}
-          create={FlashcardCreate}
-          show={FlashcardShow}
-        />
-        <Resource
           name="Asset"
           list={AssetList}
           edit={AssetEdit}
           create={AssetCreate}
           show={AssetShow}
+        />
+        <Resource
+          name="FlashcardDeck"
+          list={FlashcardDeckList}
+          edit={FlashcardDeckEdit}
+          create={FlashcardDeckCreate}
+          show={FlashcardDeckShow}
         />
         <Resource
           name="Order"
@@ -204,6 +212,20 @@ const App = (): React.ReactElement => {
           edit={UserEdit}
           create={UserCreate}
           show={UserShow}
+        />
+        <Resource
+          name="FlashcardSessionEntry"
+          list={FlashcardSessionEntryList}
+          edit={FlashcardSessionEntryEdit}
+          create={FlashcardSessionEntryCreate}
+          show={FlashcardSessionEntryShow}
+        />
+        <Resource
+          name="FlashcardSession"
+          list={FlashcardSessionList}
+          edit={FlashcardSessionEdit}
+          create={FlashcardSessionCreate}
+          show={FlashcardSessionShow}
         />
       </Admin>
     </div>

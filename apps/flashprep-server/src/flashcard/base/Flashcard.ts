@@ -21,6 +21,7 @@ import {
 import { Type } from "class-transformer";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
 import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
+import { FlashcardSessionEntry } from "../../flashcardSessionEntry/base/FlashcardSessionEntry";
 import { Microbit } from "../../microbit/base/Microbit";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -89,6 +90,15 @@ class Flashcard {
   @Type(() => FlashcardDeck)
   @IsOptional()
   flashcardDeck?: FlashcardDeck | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FlashcardSessionEntry],
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionEntry)
+  @IsOptional()
+  flashcardSessionEntries?: Array<FlashcardSessionEntry>;
 
   @ApiProperty({
     required: false,

@@ -20,6 +20,7 @@ import {
 import { ErrorCardUpdateManyWithoutFlashcardsInput } from "./ErrorCardUpdateManyWithoutFlashcardsInput";
 import { Type } from "class-transformer";
 import { FlashcardDeckWhereUniqueInput } from "../../flashcardDeck/base/FlashcardDeckWhereUniqueInput";
+import { FlashcardSessionEntryUpdateManyWithoutFlashcardsInput } from "./FlashcardSessionEntryUpdateManyWithoutFlashcardsInput";
 import { MicrobitUpdateManyWithoutFlashcardsInput } from "./MicrobitUpdateManyWithoutFlashcardsInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -86,6 +87,18 @@ class FlashcardUpdateInput {
     nullable: true,
   })
   flashcardDeck?: FlashcardDeckWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionEntryUpdateManyWithoutFlashcardsInput,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionEntryUpdateManyWithoutFlashcardsInput)
+  @IsOptional()
+  @Field(() => FlashcardSessionEntryUpdateManyWithoutFlashcardsInput, {
+    nullable: true,
+  })
+  flashcardSessionEntries?: FlashcardSessionEntryUpdateManyWithoutFlashcardsInput;
 
   @ApiProperty({
     required: false,

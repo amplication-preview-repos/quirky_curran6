@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
+import { FlashcardSession } from "../../flashcardSession/base/FlashcardSession";
 import { Flashcard } from "../../flashcard/base/Flashcard";
 
 @ObjectType()
@@ -62,6 +63,15 @@ class FlashcardDeck {
   @Type(() => ErrorCard)
   @IsOptional()
   errorCards?: Array<ErrorCard>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FlashcardSession],
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSession)
+  @IsOptional()
+  flashcardSessions?: Array<FlashcardSession>;
 
   @ApiProperty({
     required: false,

@@ -22,6 +22,8 @@ import { UpdateStudentProfileArgs } from "./UpdateStudentProfileArgs";
 import { DeleteStudentProfileArgs } from "./DeleteStudentProfileArgs";
 import { ErrorCardFindManyArgs } from "../../errorCard/base/ErrorCardFindManyArgs";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
+import { FlashcardSessionFindManyArgs } from "../../flashcardSession/base/FlashcardSessionFindManyArgs";
+import { FlashcardSession } from "../../flashcardSession/base/FlashcardSession";
 import { StudentProfileService } from "../studentProfile.service";
 @graphql.Resolver(() => StudentProfile)
 export class StudentProfileResolverBase {
@@ -105,6 +107,20 @@ export class StudentProfileResolverBase {
     @graphql.Args() args: ErrorCardFindManyArgs
   ): Promise<ErrorCard[]> {
     const results = await this.service.findErrorCards(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @graphql.ResolveField(() => [FlashcardSession], { name: "flashcardSessions" })
+  async findFlashcardSessions(
+    @graphql.Parent() parent: StudentProfile,
+    @graphql.Args() args: FlashcardSessionFindManyArgs
+  ): Promise<FlashcardSession[]> {
+    const results = await this.service.findFlashcardSessions(parent.id, args);
 
     if (!results) {
       return [];

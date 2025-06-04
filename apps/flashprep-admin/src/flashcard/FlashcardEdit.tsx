@@ -13,6 +13,7 @@ import {
 
 import { ErrorCardTitle } from "../errorCard/ErrorCardTitle";
 import { FlashcardDeckTitle } from "../flashcardDeck/FlashcardDeckTitle";
+import { FlashcardSessionEntryTitle } from "../flashcardSessionEntry/FlashcardSessionEntryTitle";
 import { MicrobitTitle } from "../microbit/MicrobitTitle";
 
 export const FlashcardEdit = (props: EditProps): React.ReactElement => {
@@ -36,6 +37,16 @@ export const FlashcardEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={FlashcardDeckTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="flashcardSessionEntries"
+          reference="FlashcardSessionEntry"
+        >
+          <SelectArrayInput
+            optionText={FlashcardSessionEntryTitle}
+            parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+            format={(value: any) => value && value.map((v: any) => v.id)}
+          />
+        </ReferenceArrayInput>
         <TextInput label="frontContent" multiline source="frontContent" />
         <TextInput label="hint" multiline source="hint" />
         <ReferenceArrayInput source="microbits" reference="Microbit">

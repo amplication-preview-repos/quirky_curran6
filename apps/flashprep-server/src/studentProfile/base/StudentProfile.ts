@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { ErrorCard } from "../../errorCard/base/ErrorCard";
+import { FlashcardSession } from "../../flashcardSession/base/FlashcardSession";
 
 @ObjectType()
 class StudentProfile {
@@ -33,6 +34,15 @@ class StudentProfile {
   @Type(() => ErrorCard)
   @IsOptional()
   errorCards?: Array<ErrorCard>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [FlashcardSession],
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSession)
+  @IsOptional()
+  flashcardSessions?: Array<FlashcardSession>;
 
   @ApiProperty({
     required: true,

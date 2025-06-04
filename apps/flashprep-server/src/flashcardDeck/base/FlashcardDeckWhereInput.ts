@@ -16,6 +16,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ErrorCardListRelationFilter } from "../../errorCard/base/ErrorCardListRelationFilter";
+import { FlashcardSessionListRelationFilter } from "../../flashcardSession/base/FlashcardSessionListRelationFilter";
 import { FlashcardListRelationFilter } from "../../flashcard/base/FlashcardListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
@@ -56,6 +57,18 @@ class FlashcardDeckWhereInput {
     nullable: true,
   })
   errorCards?: ErrorCardListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => FlashcardSessionListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => FlashcardSessionListRelationFilter)
+  @IsOptional()
+  @Field(() => FlashcardSessionListRelationFilter, {
+    nullable: true,
+  })
+  flashcardSessions?: FlashcardSessionListRelationFilter;
 
   @ApiProperty({
     required: false,

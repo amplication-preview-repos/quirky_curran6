@@ -1,21 +1,23 @@
 import { Module } from "@nestjs/common";
 import { WalletTransactionModule } from "./walletTransaction/walletTransaction.module";
-import { StudentProfileModule } from "./studentProfile/studentProfile.module";
 import { CoursePricingModule } from "./coursePricing/coursePricing.module";
+import { StudentProfileModule } from "./studentProfile/studentProfile.module";
 import { CourseModule } from "./course/course.module";
+import { FlashcardModule } from "./flashcard/flashcard.module";
 import { MicrobitModule } from "./microbit/microbit.module";
 import { CategoryTagModule } from "./categoryTag/categoryTag.module";
-import { FlashcardDeckModule } from "./flashcardDeck/flashcardDeck.module";
 import { EnrollmentModule } from "./enrollment/enrollment.module";
 import { TimetableModule } from "./timetable/timetable.module";
 import { TimetableEntryModule } from "./timetableEntry/timetableEntry.module";
-import { FlashcardModule } from "./flashcard/flashcard.module";
 import { AssetModule } from "./asset/asset.module";
+import { FlashcardDeckModule } from "./flashcardDeck/flashcardDeck.module";
 import { OrderModule } from "./order/order.module";
 import { SavedContentModule } from "./savedContent/savedContent.module";
 import { ReferralModule } from "./referral/referral.module";
 import { ErrorCardModule } from "./errorCard/errorCard.module";
 import { UserModule } from "./user/user.module";
+import { FlashcardSessionEntryModule } from "./flashcardSessionEntry/flashcardSessionEntry.module";
+import { FlashcardSessionModule } from "./flashcardSession/flashcardSession.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -29,22 +31,24 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
   controllers: [],
   imports: [
     WalletTransactionModule,
-    StudentProfileModule,
     CoursePricingModule,
+    StudentProfileModule,
     CourseModule,
+    FlashcardModule,
     MicrobitModule,
     CategoryTagModule,
-    FlashcardDeckModule,
     EnrollmentModule,
     TimetableModule,
     TimetableEntryModule,
-    FlashcardModule,
     AssetModule,
+    FlashcardDeckModule,
     OrderModule,
     SavedContentModule,
     ReferralModule,
     ErrorCardModule,
     UserModule,
+    FlashcardSessionEntryModule,
+    FlashcardSessionModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
