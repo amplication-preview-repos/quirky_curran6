@@ -20,6 +20,8 @@ import { CourseFindUniqueArgs } from "./CourseFindUniqueArgs";
 import { CreateCourseArgs } from "./CreateCourseArgs";
 import { UpdateCourseArgs } from "./UpdateCourseArgs";
 import { DeleteCourseArgs } from "./DeleteCourseArgs";
+import { CourseSectionFindManyArgs } from "../../courseSection/base/CourseSectionFindManyArgs";
+import { CourseSection } from "../../courseSection/base/CourseSection";
 import { FlashcardDeckFindManyArgs } from "../../flashcardDeck/base/FlashcardDeckFindManyArgs";
 import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
 import { CourseService } from "../course.service";
@@ -93,6 +95,20 @@ export class CourseResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [CourseSection], { name: "courseSections" })
+  async findCourseSections(
+    @graphql.Parent() parent: Course,
+    @graphql.Args() args: CourseSectionFindManyArgs
+  ): Promise<CourseSection[]> {
+    const results = await this.service.findCourseSections(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @graphql.ResolveField(() => [FlashcardDeck], { name: "flashcardDecks" })

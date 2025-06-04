@@ -11,12 +11,67 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { FlashcardDeckCreateNestedManyWithoutCoursesInput } from "./FlashcardDeckCreateNestedManyWithoutCoursesInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { CourseSectionCreateNestedManyWithoutCoursesInput } from "./CourseSectionCreateNestedManyWithoutCoursesInput";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsBoolean,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { FlashcardDeckCreateNestedManyWithoutCoursesInput } from "./FlashcardDeckCreateNestedManyWithoutCoursesInput";
 
 @InputType()
 class CourseCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => CourseSectionCreateNestedManyWithoutCoursesInput,
+  })
+  @ValidateNested()
+  @Type(() => CourseSectionCreateNestedManyWithoutCoursesInput)
+  @IsOptional()
+  @Field(() => CourseSectionCreateNestedManyWithoutCoursesInput, {
+    nullable: true,
+  })
+  courseSections?: CourseSectionCreateNestedManyWithoutCoursesInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  coverImages?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  coverVideo?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  description?: string | null;
+
   @ApiProperty({
     required: false,
     type: () => FlashcardDeckCreateNestedManyWithoutCoursesInput,
@@ -28,6 +83,41 @@ class CourseCreateInput {
     nullable: true,
   })
   flashcardDecks?: FlashcardDeckCreateNestedManyWithoutCoursesInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  highlights?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  showEnrollmentStats?: boolean | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  status?: string | null;
 }
 
 export { CourseCreateInput as CourseCreateInput };

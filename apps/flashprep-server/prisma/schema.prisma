@@ -7,6 +7,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Course {
+  courseSections      CourseSection[]
+  coverImages         String?
+  coverVideo          String?
+  createdAt           DateTime        @default(now())
+  description         String?
+  flashcardDecks      FlashcardDeck[]
+  highlights          String?
+  id                  String          @id @default(cuid())
+  showEnrollmentStats Boolean?
+  status              String?
+  updatedAt           DateTime        @updatedAt
+}
+
 model WalletTransaction {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
@@ -27,11 +41,10 @@ model StudentProfile {
   updatedAt         DateTime           @updatedAt
 }
 
-model Course {
-  createdAt      DateTime        @default(now())
-  flashcardDecks FlashcardDeck[]
-  id             String          @id @default(cuid())
-  updatedAt      DateTime        @updatedAt
+model Referral {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
 }
 
 model Flashcard {
@@ -124,12 +137,6 @@ model SavedContent {
   updatedAt DateTime @updatedAt
 }
 
-model Referral {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
 model ErrorCard {
   createdAt        DateTime        @default(now())
   errorCount       Int?
@@ -185,4 +192,29 @@ model FlashcardSession {
   studentProfileId        String?
   summaryStats            Json?
   updatedAt               DateTime                @updatedAt
+}
+
+model CourseSubSection {
+  courseSection   CourseSection? @relation(fields: [courseSectionId], references: [id])
+  courseSectionId String?
+  createdAt       DateTime       @default(now())
+  icon            String?
+  id              String         @id @default(cuid())
+  isLocked        Boolean?
+  isSample        Boolean?
+  order           Int?
+  title           String?
+  updatedAt       DateTime       @updatedAt
+}
+
+model CourseSection {
+  course            Course?            @relation(fields: [courseId], references: [id])
+  courseId          String?
+  courseSubSections CourseSubSection[]
+  createdAt         DateTime           @default(now())
+  icon              String?
+  id                String             @id @default(cuid())
+  order             Int?
+  title             String?
+  updatedAt         DateTime           @updatedAt
 }

@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
+import { CourseModule } from "./course/course.module";
 import { WalletTransactionModule } from "./walletTransaction/walletTransaction.module";
 import { CoursePricingModule } from "./coursePricing/coursePricing.module";
 import { StudentProfileModule } from "./studentProfile/studentProfile.module";
-import { CourseModule } from "./course/course.module";
+import { ReferralModule } from "./referral/referral.module";
 import { FlashcardModule } from "./flashcard/flashcard.module";
 import { MicrobitModule } from "./microbit/microbit.module";
 import { CategoryTagModule } from "./categoryTag/categoryTag.module";
@@ -13,11 +14,12 @@ import { AssetModule } from "./asset/asset.module";
 import { FlashcardDeckModule } from "./flashcardDeck/flashcardDeck.module";
 import { OrderModule } from "./order/order.module";
 import { SavedContentModule } from "./savedContent/savedContent.module";
-import { ReferralModule } from "./referral/referral.module";
 import { ErrorCardModule } from "./errorCard/errorCard.module";
 import { UserModule } from "./user/user.module";
 import { FlashcardSessionEntryModule } from "./flashcardSessionEntry/flashcardSessionEntry.module";
 import { FlashcardSessionModule } from "./flashcardSession/flashcardSession.module";
+import { CourseSubSectionModule } from "./courseSubSection/courseSubSection.module";
+import { CourseSectionModule } from "./courseSection/courseSection.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -30,10 +32,11 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 @Module({
   controllers: [],
   imports: [
+    CourseModule,
     WalletTransactionModule,
     CoursePricingModule,
     StudentProfileModule,
-    CourseModule,
+    ReferralModule,
     FlashcardModule,
     MicrobitModule,
     CategoryTagModule,
@@ -44,11 +47,12 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     FlashcardDeckModule,
     OrderModule,
     SavedContentModule,
-    ReferralModule,
     ErrorCardModule,
     UserModule,
     FlashcardSessionEntryModule,
     FlashcardSessionModule,
+    CourseSubSectionModule,
+    CourseSectionModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

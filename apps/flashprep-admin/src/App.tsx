@@ -5,6 +5,10 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
+import { CourseList } from "./course/CourseList";
+import { CourseCreate } from "./course/CourseCreate";
+import { CourseEdit } from "./course/CourseEdit";
+import { CourseShow } from "./course/CourseShow";
 import { WalletTransactionList } from "./walletTransaction/WalletTransactionList";
 import { WalletTransactionCreate } from "./walletTransaction/WalletTransactionCreate";
 import { WalletTransactionEdit } from "./walletTransaction/WalletTransactionEdit";
@@ -17,10 +21,10 @@ import { StudentProfileList } from "./studentProfile/StudentProfileList";
 import { StudentProfileCreate } from "./studentProfile/StudentProfileCreate";
 import { StudentProfileEdit } from "./studentProfile/StudentProfileEdit";
 import { StudentProfileShow } from "./studentProfile/StudentProfileShow";
-import { CourseList } from "./course/CourseList";
-import { CourseCreate } from "./course/CourseCreate";
-import { CourseEdit } from "./course/CourseEdit";
-import { CourseShow } from "./course/CourseShow";
+import { ReferralList } from "./referral/ReferralList";
+import { ReferralCreate } from "./referral/ReferralCreate";
+import { ReferralEdit } from "./referral/ReferralEdit";
+import { ReferralShow } from "./referral/ReferralShow";
 import { FlashcardList } from "./flashcard/FlashcardList";
 import { FlashcardCreate } from "./flashcard/FlashcardCreate";
 import { FlashcardEdit } from "./flashcard/FlashcardEdit";
@@ -61,10 +65,6 @@ import { SavedContentList } from "./savedContent/SavedContentList";
 import { SavedContentCreate } from "./savedContent/SavedContentCreate";
 import { SavedContentEdit } from "./savedContent/SavedContentEdit";
 import { SavedContentShow } from "./savedContent/SavedContentShow";
-import { ReferralList } from "./referral/ReferralList";
-import { ReferralCreate } from "./referral/ReferralCreate";
-import { ReferralEdit } from "./referral/ReferralEdit";
-import { ReferralShow } from "./referral/ReferralShow";
 import { ErrorCardList } from "./errorCard/ErrorCardList";
 import { ErrorCardCreate } from "./errorCard/ErrorCardCreate";
 import { ErrorCardEdit } from "./errorCard/ErrorCardEdit";
@@ -81,6 +81,14 @@ import { FlashcardSessionList } from "./flashcardSession/FlashcardSessionList";
 import { FlashcardSessionCreate } from "./flashcardSession/FlashcardSessionCreate";
 import { FlashcardSessionEdit } from "./flashcardSession/FlashcardSessionEdit";
 import { FlashcardSessionShow } from "./flashcardSession/FlashcardSessionShow";
+import { CourseSubSectionList } from "./courseSubSection/CourseSubSectionList";
+import { CourseSubSectionCreate } from "./courseSubSection/CourseSubSectionCreate";
+import { CourseSubSectionEdit } from "./courseSubSection/CourseSubSectionEdit";
+import { CourseSubSectionShow } from "./courseSubSection/CourseSubSectionShow";
+import { CourseSectionList } from "./courseSection/CourseSectionList";
+import { CourseSectionCreate } from "./courseSection/CourseSectionCreate";
+import { CourseSectionEdit } from "./courseSection/CourseSectionEdit";
+import { CourseSectionShow } from "./courseSection/CourseSectionShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -94,6 +102,13 @@ const App = (): React.ReactElement => {
         dashboard={Dashboard}
         loginPage={Login}
       >
+        <Resource
+          name="Course"
+          list={CourseList}
+          edit={CourseEdit}
+          create={CourseCreate}
+          show={CourseShow}
+        />
         <Resource
           name="WalletTransaction"
           list={WalletTransactionList}
@@ -116,11 +131,11 @@ const App = (): React.ReactElement => {
           show={StudentProfileShow}
         />
         <Resource
-          name="Course"
-          list={CourseList}
-          edit={CourseEdit}
-          create={CourseCreate}
-          show={CourseShow}
+          name="Referral"
+          list={ReferralList}
+          edit={ReferralEdit}
+          create={ReferralCreate}
+          show={ReferralShow}
         />
         <Resource
           name="Flashcard"
@@ -193,13 +208,6 @@ const App = (): React.ReactElement => {
           show={SavedContentShow}
         />
         <Resource
-          name="Referral"
-          list={ReferralList}
-          edit={ReferralEdit}
-          create={ReferralCreate}
-          show={ReferralShow}
-        />
-        <Resource
           name="ErrorCard"
           list={ErrorCardList}
           edit={ErrorCardEdit}
@@ -226,6 +234,20 @@ const App = (): React.ReactElement => {
           edit={FlashcardSessionEdit}
           create={FlashcardSessionCreate}
           show={FlashcardSessionShow}
+        />
+        <Resource
+          name="CourseSubSection"
+          list={CourseSubSectionList}
+          edit={CourseSubSectionEdit}
+          create={CourseSubSectionCreate}
+          show={CourseSubSectionShow}
+        />
+        <Resource
+          name="CourseSection"
+          list={CourseSectionList}
+          edit={CourseSectionEdit}
+          create={CourseSectionCreate}
+          show={CourseSectionShow}
         />
       </Admin>
     </div>

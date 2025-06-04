@@ -18,25 +18,49 @@ import { CourseService } from "../course.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  coverImages: "exampleCoverImages",
+  coverVideo: "exampleCoverVideo",
   createdAt: new Date(),
+  description: "exampleDescription",
+  highlights: "exampleHighlights",
   id: "exampleId",
+  showEnrollmentStats: "true",
+  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  coverImages: "exampleCoverImages",
+  coverVideo: "exampleCoverVideo",
   createdAt: new Date(),
+  description: "exampleDescription",
+  highlights: "exampleHighlights",
   id: "exampleId",
+  showEnrollmentStats: "true",
+  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    coverImages: "exampleCoverImages",
+    coverVideo: "exampleCoverVideo",
     createdAt: new Date(),
+    description: "exampleDescription",
+    highlights: "exampleHighlights",
     id: "exampleId",
+    showEnrollmentStats: "true",
+    status: "exampleStatus",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  coverImages: "exampleCoverImages",
+  coverVideo: "exampleCoverVideo",
   createdAt: new Date(),
+  description: "exampleDescription",
+  highlights: "exampleHighlights",
   id: "exampleId",
+  showEnrollmentStats: "true",
+  status: "exampleStatus",
   updatedAt: new Date(),
 };
 

@@ -22,6 +22,9 @@ import { Course } from "./Course";
 import { CourseFindManyArgs } from "./CourseFindManyArgs";
 import { CourseWhereUniqueInput } from "./CourseWhereUniqueInput";
 import { CourseUpdateInput } from "./CourseUpdateInput";
+import { CourseSectionFindManyArgs } from "../../courseSection/base/CourseSectionFindManyArgs";
+import { CourseSection } from "../../courseSection/base/CourseSection";
+import { CourseSectionWhereUniqueInput } from "../../courseSection/base/CourseSectionWhereUniqueInput";
 import { FlashcardDeckFindManyArgs } from "../../flashcardDeck/base/FlashcardDeckFindManyArgs";
 import { FlashcardDeck } from "../../flashcardDeck/base/FlashcardDeck";
 import { FlashcardDeckWhereUniqueInput } from "../../flashcardDeck/base/FlashcardDeckWhereUniqueInput";
@@ -34,8 +37,14 @@ export class CourseControllerBase {
     return await this.service.createCourse({
       data: data,
       select: {
+        coverImages: true,
+        coverVideo: true,
         createdAt: true,
+        description: true,
+        highlights: true,
         id: true,
+        showEnrollmentStats: true,
+        status: true,
         updatedAt: true,
       },
     });
@@ -49,8 +58,14 @@ export class CourseControllerBase {
     return this.service.courses({
       ...args,
       select: {
+        coverImages: true,
+        coverVideo: true,
         createdAt: true,
+        description: true,
+        highlights: true,
         id: true,
+        showEnrollmentStats: true,
+        status: true,
         updatedAt: true,
       },
     });
@@ -65,8 +80,14 @@ export class CourseControllerBase {
     const result = await this.service.course({
       where: params,
       select: {
+        coverImages: true,
+        coverVideo: true,
         createdAt: true,
+        description: true,
+        highlights: true,
         id: true,
+        showEnrollmentStats: true,
+        status: true,
         updatedAt: true,
       },
     });
@@ -90,8 +111,14 @@ export class CourseControllerBase {
         where: params,
         data: data,
         select: {
+          coverImages: true,
+          coverVideo: true,
           createdAt: true,
+          description: true,
+          highlights: true,
           id: true,
+          showEnrollmentStats: true,
+          status: true,
           updatedAt: true,
         },
       });
@@ -115,8 +142,14 @@ export class CourseControllerBase {
       return await this.service.deleteCourse({
         where: params,
         select: {
+          coverImages: true,
+          coverVideo: true,
           createdAt: true,
+          description: true,
+          highlights: true,
           id: true,
+          showEnrollmentStats: true,
+          status: true,
           updatedAt: true,
         },
       });
@@ -128,6 +161,89 @@ export class CourseControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/courseSections")
+  @ApiNestedQuery(CourseSectionFindManyArgs)
+  async findCourseSections(
+    @common.Req() request: Request,
+    @common.Param() params: CourseWhereUniqueInput
+  ): Promise<CourseSection[]> {
+    const query = plainToClass(CourseSectionFindManyArgs, request.query);
+    const results = await this.service.findCourseSections(params.id, {
+      ...query,
+      select: {
+        course: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        icon: true,
+        id: true,
+        order: true,
+        title: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/courseSections")
+  async connectCourseSections(
+    @common.Param() params: CourseWhereUniqueInput,
+    @common.Body() body: CourseSectionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      courseSections: {
+        connect: body,
+      },
+    };
+    await this.service.updateCourse({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/courseSections")
+  async updateCourseSections(
+    @common.Param() params: CourseWhereUniqueInput,
+    @common.Body() body: CourseSectionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      courseSections: {
+        set: body,
+      },
+    };
+    await this.service.updateCourse({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/courseSections")
+  async disconnectCourseSections(
+    @common.Param() params: CourseWhereUniqueInput,
+    @common.Body() body: CourseSectionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      courseSections: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateCourse({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.Get("/:id/flashcardDecks")
