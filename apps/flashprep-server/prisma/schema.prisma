@@ -1,0 +1,153 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model WalletTransaction {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model StudentProfile {
+  createdAt  DateTime    @default(now())
+  errorCards ErrorCard[]
+  id         String      @id @default(cuid())
+  updatedAt  DateTime    @updatedAt
+}
+
+model CoursePricing {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  createdAt      DateTime        @default(now())
+  flashcardDecks FlashcardDeck[]
+  id             String          @id @default(cuid())
+  updatedAt      DateTime        @updatedAt
+}
+
+model Microbit {
+  createdAt       DateTime   @default(now())
+  feedback        String?
+  flashcard       Flashcard? @relation(fields: [flashcardId], references: [id])
+  flashcardId     String?
+  forgetCount     Int?
+  highlightedText String?
+  id              String     @id @default(cuid())
+  reviewCount     Int?
+  text            String?
+  updatedAt       DateTime   @updatedAt
+}
+
+model CategoryTag {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  parent    String?
+  updatedAt DateTime @updatedAt
+}
+
+model FlashcardDeck {
+  course      Course?     @relation(fields: [courseId], references: [id])
+  courseId    String?
+  createdAt   DateTime    @default(now())
+  description String?
+  errorCards  ErrorCard[]
+  flashcards  Flashcard[]
+  id          String      @id @default(cuid())
+  lastUpdated DateTime?
+  tags        String?
+  title       String?
+  updatedAt   DateTime    @updatedAt
+}
+
+model Enrollment {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Timetable {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model TimetableEntry {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Flashcard {
+  backContent     String?
+  cardType        String?
+  correctOption   String?
+  createdAt       DateTime       @default(now())
+  errorCards      ErrorCard[]
+  flashcardDeck   FlashcardDeck? @relation(fields: [flashcardDeckId], references: [id])
+  flashcardDeckId String?
+  frontContent    String?
+  hint            String?
+  id              String         @id @default(cuid())
+  microbits       Microbit[]
+  options         Json?
+  tags            String?
+  updatedAt       DateTime       @updatedAt
+}
+
+model Asset {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model SavedContent {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Referral {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model ErrorCard {
+  createdAt        DateTime        @default(now())
+  errorCount       Int?
+  flashcard        Flashcard?      @relation(fields: [flashcardId], references: [id])
+  flashcardId      String?
+  flashcardDeck    FlashcardDeck?  @relation(fields: [flashcardDeckId], references: [id])
+  flashcardDeckId  String?
+  id               String          @id @default(cuid())
+  studentProfile   StudentProfile? @relation(fields: [studentProfileId], references: [id])
+  studentProfileId String?
+  updatedAt        DateTime        @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
